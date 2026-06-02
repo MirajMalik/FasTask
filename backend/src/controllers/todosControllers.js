@@ -26,12 +26,44 @@ export async function createTodo (req, res) {
     
 };
 
-export const updateTodo = (req, res) => {
-    res.status(200).send("you updated data on server");
+export async function updateTodo (req, res) {
+    try {
+        const { id } = req.params;
+        const { title, description } = req.body;
+
+        const updatedTodo = await Todo.findByIdAndUpdate(                                       // Model.findByIdAndUpdate(id, updateData, options)
+            id,
+            {
+                title,
+                description,
+            },   
+            { new: true },
+    )
+        res.status(200).json(updatedTodo);
+
+    }catch (error) {
+        console.error("Error in updateTodo:", error);
+        res.status(500).json({ message: "server error"});
+    }
 };
 
-export const deleteTodo = (req, res) => {
-    res.status(200).send("you deleted data from server");
+export async function deleteTodo  (req, res) {
+    try {
+        const { id } = req.params;
+
+        const deletedTodo = await Todo.findByIdAndDelete(id);
+
+         if (!deletedTodo) {
+            return res.status(404).json({
+                message: "Todo not found",
+            });
+        }   
+        res.status(200).json(deletedTodo);
+        
+    }catch (error) {
+        console.error("Error in deleteTodo:", error);
+        res.status(500).json({ message: "server error"});
+    }
 };
 
 
