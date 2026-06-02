@@ -10,8 +10,20 @@ export async function getTodos (req, res) {
     }
 }; 
 
-export const createTodo = (req, res) => {
-    res.status(201).send("you sent data to server");
+export async function createTodo (req, res) {
+    try{
+        const { title, description } = req.body;
+        const newTodo = new Todo({
+            title,
+            description,
+        });
+        const savedTodo = await newTodo.save();
+        res.status(201).json(savedTodo);
+    }catch (error) {
+        console.error("Error in createTodo:", error);
+        res.status(500).json({ message: "server error"});
+    }
+    
 };
 
 export const updateTodo = (req, res) => {
