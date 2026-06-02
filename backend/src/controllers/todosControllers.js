@@ -1,5 +1,13 @@
-export const getTodos = (req, res) => {
-    res.status(200).send("you fetched data from server");
+import Todo from "../models/todoModel.js";
+
+export async function getTodos (req, res) {
+    try {
+        const todos = await Todo.find();
+        res.status(200).json(todos);
+    } catch (error) { 
+        console.error("Error in getTodos:", error);  
+        res.status(500).json({ message: "server error"});
+    }
 }; 
 
 export const createTodo = (req, res) => {
