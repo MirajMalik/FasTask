@@ -2,13 +2,24 @@ import Todo from "../models/todoModel.js";
 
 export async function getTodos (req, res) {
     try {
-        const todos = await Todo.find();
+        const todos = await Todo.find().sort({ createdAt: -1 });           // newest to oldest
         res.status(200).json(todos);
     } catch (error) { 
         console.error("Error in getTodos:", error);  
         res.status(500).json({ message: "server error"});
     }
 }; 
+
+export async function getSingleTodo (req, res) {
+    try {
+        const { id } = req.params;
+        const todo = await Todo.findById(id);
+        res.status(200).json(todo);
+    } catch (error) { 
+        console.error("Error in getSingleTodo:", error);  
+        res.status(500).json({ message: "server error"});
+    }
+};
 
 export async function createTodo (req, res) {
     try{
@@ -38,7 +49,14 @@ export async function updateTodo (req, res) {
                 description,
             },   
             { new: true },
-    )
+        );
+
+        if (!updatedTodo) {
+            return res.status(404).json({
+                message: "Todo not found",
+            });
+        }
+
         res.status(200).json(updatedTodo);
 
     }catch (error) {
