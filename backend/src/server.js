@@ -4,15 +4,19 @@ import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 
 
-
+app.use(cors({
+    origin: ["http://localhost:5173", "http://localhost:5174"],               // allows requests from common Vite ports
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(rateLimiter);                                                        // apply rate limiter to all routes
+app.use(rateLimiter);  // apply rate limiter to all routes
+                                                    
 
 // routes
 app.use("/api/todos", todosRoutes);
