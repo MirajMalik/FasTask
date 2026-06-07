@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import CreatePage from "./pages/CreatePage";
 import TodoDetails from "./pages/TodoDetails";
+import CompletedPage from "./pages/CompletedPage";
 
 
 
@@ -44,6 +45,7 @@ function App() {
         <Route path="/" element={<Home todo={todo} SetTodo={SetTodo} todos={todos} setTodos={setTodos} showFinished={showFinished} setshowFinished={setshowFinished} />} />
         <Route path="/create" element={<CreatePage />} />
         <Route path="/todo/:id" element={<TodoDetails />} />
+        <Route path="/completed" element={<CompletedPage />} />
       </Routes>
     </>
   )

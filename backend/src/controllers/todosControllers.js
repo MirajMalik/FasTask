@@ -1,4 +1,5 @@
 import Todo from "../models/todoModel.js";
+import CompletedTodo from "../models/completedTodoModel.js";
 
 export async function getTodos (req, res) {
     try {
@@ -80,6 +81,54 @@ export async function deleteTodo  (req, res) {
         
     }catch (error) {
         console.error("Error in deleteTodo:", error);
+        res.status(500).json({ message: "server error"});
+    }
+};
+
+
+export async function completedTodo (req, res) {
+    try{
+        const { title, description } = req.body;
+        const { id } = req.params;
+
+        const newTodo = new CompletedTodo({
+            id,
+            title,
+            description,
+        });
+        const completedTodo = await newTodo.save();
+        
+        // Delete the original todo so it's moved, not just copied
+        await Todo.findByIdAndDelete(id);
+
+        res.status(201).json(completedTodo);
+    }catch (error) {
+        console.error("Error in completedTodo:", error);
+        res.status(500).json({ message: "server error"});
+    }
+    
+};
+
+export async function getCompletedTodos (req, res) {
+    try {
+        const completedTodos = await CompletedTodo.find().sort({ createdAt: -1 });
+        res.status(200).json(completedTodos);
+    } catch (error) { 
+        console.error("Error in getCompletedTodos:", error);  
+        res.status(500).json({ message: "server error"});
+    }
+};
+
+export async function deleteCompletedTodo (req, res) {
+    try {
+        const { id } = req.params;
+        const deletedTodo = await CompletedTodo.findByIdAndDelete(id);
+        if (!deletedTodo) {
+            return res.status(404).json({ message: "Todo not found" });
+        }   
+        res.status(200).json(deletedTodo);
+    }catch (error) {
+        console.error("Error in deleteCompletedTodo:", error);
         res.status(500).json({ message: "server error"});
     }
 };

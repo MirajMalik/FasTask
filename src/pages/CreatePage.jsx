@@ -6,7 +6,7 @@ import api from "../lib/axios";
 
 const CreatePage = () => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const CreatePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title.trim() || !content.trim()) {
+    if (!title.trim() || !description.trim()) {
       toast.error("All fields are required");
       return;
     }
@@ -23,7 +23,7 @@ const CreatePage = () => {
     try {
       await api.post("/todos", {
         title,
-        content,
+        description,
       });
 
       toast.success("Note created successfully!");
@@ -52,32 +52,32 @@ const CreatePage = () => {
             Back to Todos
           </Link>
 
-          <div className="card bg-base-100 shadow-xl border border-base-content/10 hover:shadow-2xl transition-all duration-300">
+          <div className="card bg-base-100 shadow-xl border border-base-description/10 hover:shadow-2xl transition-all duration-300">
             <div className="card-body">
               <h2 className="card-title text-3xl font-bold mb-6 text-primary">Create New Todo</h2>
               <form onSubmit={handleSubmit}>
-                <div className="form-control mb-4">
-                  <label className="label">
+                <div className="form-control mb-6">
+                  <label className="label mb-2">
                     <span className="label-text">Title</span>
                   </label>
                   <input
                     type="text"
                     placeholder="Todo Title"
-                    className="input input-bordered input-primary w-full focus:ring-2 focus:ring-primary/20 transition-all bg-base-100/50"
+                    className="pl-4 input input-bordered input-primary w-full focus:ring-2 focus:ring-primary/20 transition-all bg-base-100/50"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
 
-                <div className="form-control mb-4">
-                  <label className="label">
-                    <span className="label-text">Content</span>
+                <div className="form-control mb-6">
+                  <label className="label mb-2">
+                    <span className="label-text">Description</span>
                   </label>
                   <textarea
                     placeholder="Write your todo here..."
-                    className="textarea textarea-bordered textarea-primary h-32 w-full focus:ring-2 focus:ring-primary/20 transition-all bg-base-100/50"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    className="pl-4 textarea textarea-bordered textarea-primary h-32 w-full focus:ring-2 focus:ring-primary/20 transition-all bg-base-100/50"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
 

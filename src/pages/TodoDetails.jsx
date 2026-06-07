@@ -86,11 +86,11 @@ const TodoDetails = () => {
             </button>
           </div>
 
-          <div className="card bg-base-100">
-            <div className="card-body">
-              <div className="form-control mb-4">
+          <div className="card bg-base-100 ">
+            <div className="card-body ">
+              <div className="form-control mb-4 flex flex-col">
                 <label className="label">
-                  <span className="label-text">Title</span>
+                  <span className="label-text mb-4">Title</span>
                 </label>
                 <input
                   type="text"
@@ -101,13 +101,13 @@ const TodoDetails = () => {
                 />
               </div>
 
-              <div className="form-control mb-4">
+              <div className="form-control mb-4 flex flex-col">
                 <label className="label">
-                  <span className="label-text">Content</span>
+                  <span className="label-text mb-4">Content</span>
                 </label>
                 <textarea
                   placeholder="Write your task here..."
-                  className="textarea textarea-bordered h-32"
+                  className="textarea h-32 pl-4"
                   value={task.content}
                   onChange={(e) => setTask({ ...task, content: e.target.value })}
                 />
