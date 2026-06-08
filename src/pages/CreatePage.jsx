@@ -54,7 +54,7 @@ const CreatePage = () => {
 
           <div className="card bg-base-100 shadow-xl border border-base-description/10 hover:shadow-2xl transition-all duration-300">
             <div className="card-body">
-              <h2 className="card-title text-3xl font-bold mb-6 text-primary">Create New Todo</h2>
+              <h2 className="card-title text-3xl font-bold mb-6 text-primary">Create New Task</h2>
               <form onSubmit={handleSubmit}>
                 <div className="form-control mb-6">
                   <label className="label mb-2">
@@ -62,7 +62,7 @@ const CreatePage = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="Todo Title"
+                    placeholder="Task Title"
                     className="pl-4 input input-bordered input-primary w-full focus:ring-2 focus:ring-primary/20 transition-all bg-base-100/50"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -74,7 +74,7 @@ const CreatePage = () => {
                     <span className="label-text">Description</span>
                   </label>
                   <textarea
-                    placeholder="Write your todo here..."
+                    placeholder="Write your task description here..."
                     className="pl-4 textarea textarea-bordered textarea-primary h-32 w-full focus:ring-2 focus:ring-primary/20 transition-all bg-base-100/50"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -83,7 +83,7 @@ const CreatePage = () => {
 
                 <div className="card-actions justify-end mt-4">
                   <button type="submit" className="btn btn-primary btn-block text-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all" disabled={loading}>
-                    {loading ? "Creating..." : "Create Todo"}
+                    {loading ? "Creating..." : "Create Task"}
                   </button>
                 </div>
               </form>

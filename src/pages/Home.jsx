@@ -16,7 +16,7 @@ const HomePage = () => {
     const fetchTodos = async () => {
       try {
         const res = await api.get("/todos");
-        console.log("response:", res.data);
+        // console.log("response:", res.data);
         setTodos(res.data);
         setIsRateLimited(false);
       } catch (error) {
